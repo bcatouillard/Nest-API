@@ -7,7 +7,9 @@ import { Project, ProjectDocument } from './schema/project.schema';
 
 @Injectable()
 export class ProjectService {
-  constructor(@InjectModel(Project.name) private projectModel: Model<ProjectDocument>) {}
+  constructor(
+    @InjectModel(Project.name) private projectModel: Model<ProjectDocument>,
+  ) {}
 
   async create(createProjectDto: CreateProjectDto): Promise<Project> {
     const createdProject = new this.projectModel(createProjectDto);
@@ -22,8 +24,15 @@ export class ProjectService {
     return this.projectModel.findOne({ _id: id });
   }
 
-  async update(id: string, updateProjectDto: UpdateProjectDto): Promise<Project> {
-    const updatedProject = this.projectModel.findByIdAndUpdate(id, updateProjectDto, { new: true });
+  async update(
+    id: string,
+    updateProjectDto: UpdateProjectDto,
+  ): Promise<Project> {
+    const updatedProject = this.projectModel.findByIdAndUpdate(
+      id,
+      updateProjectDto,
+      { new: true },
+    );
     return updatedProject;
   }
 
